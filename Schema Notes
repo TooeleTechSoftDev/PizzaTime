@@ -1,0 +1,96 @@
+'use strict';
+
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+
+
+const UserName = new Schema({
+    Handle: {
+        type: String,
+        required: true
+    }.
+    Password: {
+        type: String.
+        required: true
+    }.
+    USID: {
+        type: String,
+        required: true
+    }.
+})
+
+const Snames = new Schema({
+    StName: {
+        type: String,
+        required: true
+    }.
+    SNID: {
+        type: String,
+        required: true
+    }.
+})
+
+ const PastOrders = new Schema({
+    USID: {
+        type: String,
+        required: true
+    }.
+    ADDID: {
+        type: String,
+        required: true
+    }.
+    Pizzas: {
+        type: Array,
+        required: false
+    }.
+    FoodSides: {
+        type: Array,
+        required: false
+    }.
+    Drinks: {
+        type: Array,
+        required: false
+    }.
+    Price: {
+        type: Double,
+        required: true
+    }.
+    Tip: {
+        type: Double,
+        required: true
+    }.
+    PaymentType: {
+        type: String,
+        required: ture
+    }.
+    OrderDate: {
+        type: Date,
+        default: Date.new
+    }.
+ })
+/*
+JavaScript to input the 'Arrays' of each item, to allow for a flexible amount of items per.
+*/
+
+ const DelivAdd = new Schema ({
+    USID: {
+        type: String,
+        required: true
+    }.
+    HouseNumber: {
+        type: String,
+        required: true
+    }.
+    SNID: {
+        type: String,
+        required: true
+    }.
+    AptNum: {
+        type: String,
+        required: false
+    }.
+    ADDID: {
+        type: String,
+        required: true
+    }.
+ })
