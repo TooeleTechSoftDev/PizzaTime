@@ -71,7 +71,7 @@ app.get('/account/detail/:accountNum', (req, res) => {
 })
 
 function retrieveUser(accountNum,cb) {
-    collection.Accounts.findOne({ accountNum: parseInt(accountNum)}.then((err, item) => cb(item))
+    collection.Accounts.findOne({ accountNum: parseInt(accountNum)}.then((err, item) => cb(item)))
 }
 
 
@@ -97,7 +97,7 @@ app.get('/product/detail/:productNum', (req, res) => {
 })
 
 function retrieveItem(productNum,cb) {
-    collection.Products.findOne({ productNum: parseInt(productNum)}.then((err, item) => cb(item))
+    collection.Products.findOne({ productNum: parseInt(productNum)}.then((err, item) => cb(item)))
 }
 
 
@@ -123,5 +123,5 @@ app.get('/order/detail/:orderNum', (req, res) => {
 })
 
 function retrieveOrder(orderNum,cb) {
-    collection.Orders.findOne({ orderNum: parseInt(orderNum)}.then((err, item) => cb(item))
+    collection.Orders.findOne({ orderNum: parseInt(orderNum)}.then((err, item) => cb(item)))
 }
