@@ -1,81 +1,127 @@
 const express = require('express')
 const app = express()
 
-////
-//const db = require("mongodb")
-//const dbLink = "mongodb://localhost:27017/test"
-//const MongoClient = db.MongoClient
-////
+const db = require("mongodb")
+const dbLink = "mongodb://localhost:27017"
+const MongoClient = db.MongoClient
 
-app.use('/public',express.static('public'))
+const assert = require('assert')
 
-app.get('/', (req, res) => res.send('<html><body><h2>This is smaller</h2></body></html>'))
-app.get('/test', (req, res) => res.send('<html><body><h1>This is bigger</h1></body></html>'))
+const mongoClient = new MongoClient(dbLink, { useNewUrlParser: true } )
+const mongoDBName = 'PizzaTime'
+var mongoDB
+var collection = {}
 
-let jsonObj = { "name": "supreme",
-                "size": 12,
-                "crust": "deep",
-                "imgURL":  "http://www.sugardale.com/sites/default/files/stuffed%20crust%20pizza.jpg"
-            }
-                
+mongoClient.connect(function(err) {
+    assert.equal(null, err)
+    console.log("Connected to Mongo")
+    // Get a handle to our database
+    mongoDB = mongoClient.db(mongoDBName)
 
-app.get('/deals', (req, res) => res.send(JSON.stringify(jsonObj)))
+    // Get a handle to all of the collections
+    const collList = ['Accounts','Orders','Products','Pages']
+    collList.some(element => {
+        // Store the handles in this object, making it easier to access them
+        collection[element] = mongoDB.collection(element)
+    })
 
-app.listen(3000, 
-    () => console.log("Listening on port 3000"))
+    app.listen("8080", () => {
+        console.log("Server started on 8080")
+    })
+
+})
+
+///////////////////////////////////////////////////////////////
+
+// Express initialization
+app.use(express.json('*/*'))
+
+// Helper functions used throughout much of the code below
+function respondOK(res,obj) {
+    obj = { ...obj, "resultCode" : 200, "result": "OK" }
+    res.send(JSON.stringify(obj))
+}
+
+// ToDo: refactor all the insertOne functions here
 
 
-
-
-
-
-
-
+////////////////// API and DB calls ///////////////////////////
 
 /////-----      customer
-/*
-registerNewUser(accountData)
+app.post('/account/newuser', (req, res) => {
+    let accountData = req.body
+    // Todo: sanitize the data and do security checks here.
+    registerNewUser(accountData,(respObj) => respondOK(res,respObj))
+    // Normally, if there was an error, we wouldn't respondOK...
+    // IOW, put some error-checking/handling code here
+})
 
-getUserInfo(user)
+function registerNewUser(accountData,cb) {
+    collection.Accounts.insertOne(accountData).then( 
+        (myResult) => 
+            cb({ ops: myResult.ops, 
+                 insertedCount: myResult.insertedCount, 
+                 insertedId: myResult.insertedId})
+    )
+}
 
-modifyUserAccount(user,changes)
+app.get('/account/detail/:accountNum', (req, res) => {
+    let accountNum = req.params.accountNum
+    retrieveUser(accountNum,(respObj) => respondOK(res,respObj))
+})
 
-deleteUserAccount(user)
-
-*/
-
-/////-----      discover
-/*
-getMenu()
-
-getWebsiteData()
-
-*/
-
-/////-----      order
-/*
-recordProductInRecentlyPurchased(product)
-
-addToCart(product,amount)
-
-removeFromCart(product,amount)
-
-clearCart()
-
-checkout()
-
-sendOrderToStore(cart,customerinfo)
+function retrieveUser(accountNum,cb) {
+    collection.Accounts.findOne({ accountNum: parseInt(accountNum)}.then((err, item) => cb(item))
+}
 
 
-*/
+/////-----      products
+app.post('/product/newitem', (req, res) => {
+    let productData = req.body
+    // Todo: sanitize the data and do security checks here.
+    registerNewItem(productData,(respObj) => respondOK(res,respObj))
+})
 
-/////-----     admin
-/*
+function registerNewItem(productData,cb) {
+    collection.Products.insertOne(productData).then( 
+        (myResult) => 
+            cb({ ops: myResult.ops, 
+                 insertedCount: myResult.insertedCount, 
+                 insertedId: myResult.insertedId})
+    )
+}
 
-addProductToMenu(product)
+app.get('/product/detail/:productNum', (req, res) => {
+    let productNum = req.params.productNum
+    retrieveItem(productNum,(respObj) => respondOK(res,respObj))
+})
 
-removeProductFromMenu(product)
+function retrieveItem(productNum,cb) {
+    collection.Products.findOne({ productNum: parseInt(productNum)}.then((err, item) => cb(item))
+}
 
-modifyProductOnMenu(product)
 
-*/
+/////-----      orders
+app.post('/order/newitem', (req, res) => {
+    let orderData = req.body
+    // Todo: sanitize the data and do security checks here.
+    registerNewOrder(orderData,(respObj) => respondOK(res,respObj))
+})
+
+function registerNewOrder(orderData,cb) {
+    collection.Orders.insertOne(orderData).then( 
+        (myResult) => 
+            cb({ ops: myResult.ops, 
+                 insertedCount: myResult.insertedCount, 
+                 insertedId: myResult.insertedId})
+    )
+}
+
+app.get('/order/detail/:orderNum', (req, res) => {
+    let orderNum = req.params.orderNum
+    retrieveOrder(orderNum,(respObj) => respondOK(res,respObj))
+})
+
+function retrieveOrder(orderNum,cb) {
+    collection.Orders.findOne({ orderNum: parseInt(orderNum)}.then((err, item) => cb(item))
+}
