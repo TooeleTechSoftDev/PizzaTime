@@ -1,0 +1,9 @@
+TODO 
+
+get mongodb into it
+Input into Mongo DB
+Read from mongo DB
+use multiple 'database' pools to formulate data
+Use internal Mongodb
+
+modular design, use multiple files to organize & contain the logic, per type.
