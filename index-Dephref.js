@@ -6,6 +6,8 @@ const express = require('express')
 const app = express()
 const mongoClient = new MongoClient(dblink, { useNewUrlParser: true })
 const DBname = 'PizzaTime'
+app.use(express.json('*/*'))
+
 
 mongoClient.connect(function (err) {
     assert.equal(null, err)
@@ -15,12 +17,9 @@ mongoClient.connect(function (err) {
     })
 })
 
-function look(data, collect, entr) {
-    const dbo = mongoClient.db(data)
-    dbo.collection(collect).find(entr, { projection: { _id: 0 } }).toArray(function (err, result) {
-        if (err) throw err;
-        console.log(result);
-    });
+function look(collect, entr, retu) {
+    const dbo = mongoClient.db("Pizza-dude")
+     dbo.collection(collect).findOne(entr, { projection: { _id: 0 } }).then(retu)
 }
 function entry(data, collect, entr) {
     const dbo = mongoClient.db(data)
@@ -45,30 +44,24 @@ function remove(data, collect, entr) {
 *         - Example - { name: "Company Inc", address: "Highway 37" }
 * */
 
-app.use('/public',express.static('public'))
-
-app.get('/', (req, res) => res.send('<html><body><h2>This is smaller</h2></body></html>'))
-app.get('/test', (req, res) => res.send('<html><body><h1>This is bigger</h1></body></html>'))
+app.get('/', express.static('public'))
+app.get('/found/')
 
 let jsonObj = { "name": "supreme",
                 "size": 12,
                 "crust": "deep",
                 "imgURL":  "http://www.sugardale.com/sites/default/files/stuffed%20crust%20pizza.jpg"
 }
-app.get('/account/lookup/:name', (req, res) => {
-    let lname = JSON.stringify(req.params.name)
-    let test = '{ "name": ' + lname + ' }'
-    console.log('test is ' + test)
-    let intest = JSON.parse(test)
-    let output = look("Pizza-dude", "People", intest)
-    console.log('before')
-    console.log(output)
-    console.log('after')
+app.get('/lookup/:name', (req, res) => {
+    let test = { name: { $regex: req.params.name, $options: 'i' } }
+
+
+    look("People", test, (docu) => {
+        console.log('Callback testout -> ', docu)
+        res.send(JSON.stringify(docu))
+    })
 })
 /*
 var test = { name: "Bobby" }
 look("Pizza-dude", "People", test)
 */
-app.get('/deals', (req, res) => res.send(JSON.stringify(jsonObj)))
-
-
