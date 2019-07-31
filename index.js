@@ -109,6 +109,16 @@ app.post('/product/newitem', (req, res) => {
     registerObject(collection.Products,productData,(respObj) => respondOK(res,respObj))
 })
 
+app.post('product/search/:query',(req,res) =>{
+    let query = req.params.query
+    collection.Products.find({
+        $or: [
+            {productName: {$regex:query, $options:'i'}},
+            {productNum: {$regex:query, $options:'i'}},
+        ]
+    },(err, cursor) => cursor.toArray((err, items) => cb(items)))
+})
+
 app.get('/product/detail/:productNum', (req, res) => {
     let num = parseInt(req.params.productNum)
     retrieveOne(collection.Products, "productNum",num,(obj) => respondOK(res,obj))
