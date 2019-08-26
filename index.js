@@ -120,7 +120,9 @@ app.post('/account/newuser', (req, res) => {
         respondError(res, 'accountId should NOT exist on received data')
         return  // be sure to return after sending a response, or we get an error about reusing res
     }
-    accountData.accountId = 123;  // *** placeholder.  need to generate a new *unique* one
+    accountData.accountId = newaccountNum;  // *** placeholder.  need to generate a new *unique* one
+    let newaccountNum = Math.floor(Math.random() * 10000) + 10000;
+
     Object.keys(custAccountsSchema).forEach(key => {
         console.log(key, " | ", accountData[key])  //  *** just for checking
         if(!accountData[key])  {
