@@ -61,3 +61,10 @@ typings/
 
 # next.js build output
 .next
+
+# Visual Studio
+/.vs
+**/*.suo
+
+# databases
+**/*.sqlite
