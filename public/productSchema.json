@@ -41,25 +41,37 @@
             "type": "string",
             "maxLength": 50,
             "pattern": "^[\\w \\.,']*$",
-            "description": "Order type must be no more than 50 characters and contain alphanumerics or these symbols:  _.,'"
+            "description": "Order type must be no more than 50 characters, and contain alphanumerics or these symbols:  _.,'"
         },
         "itemName": {
             "type": "string",
             "maxLength": 50,
             "pattern": "^[\\w \\.,']*$",
-            "description": "Item's name must be no more than 50 characters and contain alphanumerics or these symbols:  _.,'"
+            "description": "Item's name must be no more than 50 characters, and contain alphanumerics or these symbols:  _.,'"
         },
         "size": {
             "type": "string",
             "maxLength": 20,
             "pattern": "^[\\w \\.,']*$",
-            "description": "Item's size must be no more than 20 characters and contain alphanumerics or these symbols:  _.,'"
+            "description": "Item's size must be no more than 20 characters, and contain alphanumerics or these symbols:  _.,'"
         },
         "price": {
             "type": "number",
             "minimum": -1000,
             "maximum": 1000,
             "description": "price must be a number between -1000 and +1000"
+        },
+        "longDescription": {
+            "type": "string",
+            "maxLength": 1000,
+            "pattern": "^[\\w \\-.,'!#@]*$",
+            "description": "Item's description must be no more than 1000 characters, and contain alphanumerics or these symbols:  -.,'!#@"
+        },
+        "picFileName": {
+            "type": "string",
+            "maxLength": 250,
+            "pattern": "^[\\w \\-.,']*$",
+            "description": "picture filename must be no more than 250 characters, and contain alphanumerics or these symbols:  _-.,'"
         }
     }
 }
