@@ -22,7 +22,12 @@ async function newAccount(accountData) {
 }
 
 async function changeAccount(id, accountData) {
-    // *** Todo: sanitize the data and do security checks here.
+    if (accountData.accountId)  throw('accountId should NOT exist on received data')
+    accountData.accountId = id
+
+    err = checkInput(accountData, "custAccount")
+    if (err)  throw(err)
+    
     return await collection.Accounts.updateOne( { "accountId": id }, { $set: accountData })
 }
 
