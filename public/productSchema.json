@@ -7,14 +7,18 @@
             "orderType": "pizza",
             "itemName": "Hawaiian",
             "size": "Large",
-            "price": 12
+            "price": 12,
+            "longDescription": "Ham and cheese pizza",
+            "picFileName": "hawaiian-pizza.jpg"
         },
         {
             "productId": 345,
             "orderType": "drink",
             "itemName": "Coke",
             "size": "Small",
-            "price": 1.5
+            "price": 1.5,
+            "longDescription": "A refreshing coke drink",
+            "picFileName": "coke.jpg"
         },
         {
             "productId": 567,
