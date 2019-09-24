@@ -7,26 +7,26 @@
             "orderType": "pizza",
             "itemName": "Hawaiian",
             "size": "Large",
-            "pricePerItem": 12
+            "price": 12
         },
         {
             "productId": 345,
             "orderType": "drink",
             "itemName": "Coke",
             "size": "Small",
-            "pricePerItem": 1.5
+            "price": 1.5
         },
         {
             "productId": 567,
             "orderType": "coupons",
             "itemName": "July2019Promo",
-            "pricePerItem": -3.0
+            "price": -3.0
         },
         {
             "productId": 678,
             "orderType": "fees",
             "itemName": "Delivery Charge",
-            "pricePerItem": 2.0
+            "price": 2.0
         }
     ],
     "type": "object",
