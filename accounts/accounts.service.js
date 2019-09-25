@@ -1,9 +1,16 @@
 const dbclient = require('../helpers/db')
 const { checkInput } = require('../helpers/schemas')
 
-let collection 
 
+let collection 
 (async () => { collection = await dbclient.collections() })()
+
+module.exports = {
+    getAccount,
+    newAccount,
+    changeAccount,
+    searchAccount
+}
 
 
 async function getAccount(id) {
@@ -45,9 +52,4 @@ async function searchUser(pattern) {
             { "contacts.lastName": { $regex: pattern, $options: 'i'}}
         ]
     }).toArray()
-}
-
-
-module.exports = {
-    getAccount, newAccount, changeAccount, searchAccount
 }
