@@ -34,11 +34,11 @@ async function newProduct(productData) {
 }
 
 async function changeProduct(prodId, productData) {
-    if (productData.productId)  throw('productId should NOT exist on received data')
+    if (productData.productId && prodId !== productData.productId)  throw('a new productId should NOT exist on received data')
     productData.productId = prodId
 
     err = checkInput(productData, 'product')  // this uses a complete object that passes all requirements: can't just check individual properties
     if (err)  throw(err)
 
-    return await collection.Products.updateOne( { "productId": prodId }, { $set: productData })
+    return await collection.Products.updateOne( { "productId": prodId }, { $set: productData } )
 }
