@@ -4,27 +4,27 @@
     "examples": [
         {
             "productId": 789,
-            "orderType": "pizza",
+            "productType": "pizza",
             "itemName": "Hawaiian",
             "size": "Large",
             "pricePerItem": 12
         },
         {
             "productId": 345,
-            "orderType": "drink",
+            "productType": "drink",
             "itemName": "Coke",
             "size": "Small",
             "pricePerItem": 1.5
         },
         {
             "productId": 567,
-            "orderType": "coupons",
+            "productType": "coupons",
             "itemName": "July2019Promo",
             "pricePerItem": -3.0
         },
         {
             "productId": 678,
-            "orderType": "fees",
+            "productType": "fees",
             "itemName": "Delivery Charge",
             "pricePerItem": 2.0
         }
@@ -37,7 +37,7 @@
             "type": "integer",
             "description": "productId must be an integer"
         },
-        "orderType": {
+        "productType": {
             "type": "string",
             "maxLength": 50,
             "pattern": "^[\\w \\.,']*$",
