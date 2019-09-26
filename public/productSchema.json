@@ -7,7 +7,8 @@
             "productType": "pizza",
             "name": "Hawaiian",
             "size": "Large",
-            "imgUrl": "something.jpg",
+            "longDescription": "Ham and cheese pizza",
+            "imgUrl": "hawaiian-pizza.jpg"
             "price": 12
         },
         {
@@ -15,7 +16,9 @@
             "productType": "drink",
             "name": "Coke",
             "size": "Small",
-            "price": 1.5
+            "price": 1.5,
+            "longDescription": "A refreshing coke drink",
+            "imgUrl": "coke.jpg"
         },
         {
             "productId": 567,
@@ -42,13 +45,13 @@
             "type": "string",
             "maxLength": 50,
             "pattern": "^[\\w \\.,']*$",
-            "description": "Order type must be no more than 50 characters and contain alphanumerics or these symbols:  _.,'"
+            "description": "Order type must be no more than 50 characters, and contain alphanumerics or these symbols:  _.,'"
         },
         "name": {
             "type": "string",
             "maxLength": 50,
             "pattern": "^[\\w \\.,']*$",
-            "description": "Item's name must be no more than 50 characters and contain alphanumerics or these symbols:  _.,'"
+            "description": "Item's name must be no more than 50 characters, and contain alphanumerics or these symbols:  _.,'"
         },
         "imgUrl": {
             "type": "string",
@@ -60,13 +63,19 @@
             "type": "string",
             "maxLength": 20,
             "pattern": "^[\\w \\.,']*$",
-            "description": "Item's size must be no more than 20 characters and contain alphanumerics or these symbols:  _.,'"
+            "description": "Item's size must be no more than 20 characters, and contain alphanumerics or these symbols:  _.,'"
         },
         "price": {
             "type": "number",
             "minimum": -1000,
             "maximum": 1000,
             "description": "price must be a number between -1000 and +1000"
+        },
+        "longDescription": {
+            "type": "string",
+            "maxLength": 1000,
+            "pattern": "^[\\w \\-.,'!#@]*$",
+            "description": "Item's description must be no more than 1000 characters, and contain alphanumerics or these symbols:  -.,'!#@"
         }
     }
 }

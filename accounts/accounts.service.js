@@ -1,9 +1,16 @@
 const dbclient = require('../helpers/db')
 const { checkInput } = require('../helpers/schemas')
 
-let collection 
 
+let collection 
 (async () => { collection = await dbclient.collections() })()
+
+module.exports = {
+    getAccount,
+    newAccount,
+    changeAccount,
+    searchAccount
+}
 
 
 async function getAccount(id) {
@@ -22,8 +29,13 @@ async function newAccount(accountData) {
 }
 
 async function changeAccount(id, accountData) {
-    // *** Todo: sanitize the data and do security checks here.
-    return await collection.Accounts.updateOne( { "accountId": id }, { $set: accountData })
+    if (accountData.accountId && id !== accountData.accountId)  throw('a new accountId should NOT exist on received data')
+    accountData.accountId = id
+
+    err = checkInput(accountData, "custAccount")
+    if (err)  throw(err)
+    
+    return await collection.Accounts.updateOne( { "accountId": id }, { $set: accountData } )
 }
 
 // Preliminary search function
@@ -40,9 +52,4 @@ async function searchUser(pattern) {
             { "contacts.lastName": { $regex: pattern, $options: 'i'}}
         ]
     }).toArray()
-}
-
-
-module.exports = {
-    getAccount, newAccount, changeAccount, searchAccount
 }
