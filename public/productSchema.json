@@ -34,7 +34,7 @@
         }
     ],
     "type": "object",
-    "required": [ "productId", "orderType", "itemName", "price" ],
+    "required": [ "productId", "productType", "name", "price" ],
     "additionalProperties": false,
     "properties": {
         "productId": {
@@ -56,8 +56,8 @@
         "imgUrl": {
             "type": "string",
             "maxLength": 300,
-            "pattern": "^[\\w+']*$",
-            "description": "Item's image URL must be no more than 300 characters"
+            "pattern": "^[\\w-.']*$",
+            "description": "Item's image URL must be no more than 300 characters, and contain alphanumerics or these symbols:  _-.'"
         },
         "size": {
             "type": "string",

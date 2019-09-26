@@ -19,7 +19,7 @@ async function getById(id) {
 
 async function getByCategory(category) {
     console.log("Looking for product category: ", category)
-    return await collection.Products.find({ "category": category }).toArray() 
+    return await collection.Products.find({ "productType": category }).toArray() 
 
 }
 
