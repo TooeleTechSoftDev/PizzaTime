@@ -23,5 +23,5 @@ app.use('/prod', require('./products/products.controller'))
 app.use(errorHandler)
 
 // Turn up web server
-const port = 3000
+const port = 8088
 http.listen(port, () => { console.log("Listening on port ",port)})

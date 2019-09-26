@@ -6,19 +6,21 @@ let collection
 (async () => { collection = await dbclient.collections() })()
 
 module.exports = {
-    getProdById,
-    getProdByCategory,
+    getById,
+    getByCategory,
     newProduct,
     changeProduct
 }
 
-
-async function getProdById(id) {
+async function getById(id) {
+    console.log("Looking for productID: ", id)
     return await collection.Products.findOne({ "productId": id })    
 }
 
-async function getProdByCategory(category) {
-    return await collection.Products.find({ "orderType": category }).toArray() 
+async function getByCategory(category) {
+    console.log("Looking for product category: ", category)
+    return await collection.Products.find({ "category": category }).toArray() 
+
 }
 
 async function newProduct(productData) {

@@ -4,32 +4,32 @@
     "examples": [
         {
             "productId": 789,
-            "orderType": "pizza",
-            "itemName": "Hawaiian",
+            "productType": "pizza",
+            "name": "Hawaiian",
             "size": "Large",
-            "price": 12,
             "longDescription": "Ham and cheese pizza",
-            "picFileName": "hawaiian-pizza.jpg"
+            "imgUrl": "hawaiian-pizza.jpg"
+            "price": 12
         },
         {
             "productId": 345,
-            "orderType": "drink",
-            "itemName": "Coke",
+            "productType": "drink",
+            "name": "Coke",
             "size": "Small",
             "price": 1.5,
             "longDescription": "A refreshing coke drink",
-            "picFileName": "coke.jpg"
+            "imgUrl": "coke.jpg"
         },
         {
             "productId": 567,
-            "orderType": "coupons",
-            "itemName": "July2019Promo",
+            "productType": "coupons",
+            "name": "July2019Promo",
             "price": -3.0
         },
         {
             "productId": 678,
-            "orderType": "fees",
-            "itemName": "Delivery Charge",
+            "productType": "fees",
+            "name": "Delivery Charge",
             "price": 2.0
         }
     ],
@@ -41,17 +41,23 @@
             "type": "integer",
             "description": "productId must be an integer"
         },
-        "orderType": {
+        "productType": {
             "type": "string",
             "maxLength": 50,
             "pattern": "^[\\w \\.,']*$",
             "description": "Order type must be no more than 50 characters, and contain alphanumerics or these symbols:  _.,'"
         },
-        "itemName": {
+        "name": {
             "type": "string",
             "maxLength": 50,
             "pattern": "^[\\w \\.,']*$",
             "description": "Item's name must be no more than 50 characters, and contain alphanumerics or these symbols:  _.,'"
+        },
+        "imgUrl": {
+            "type": "string",
+            "maxLength": 300,
+            "pattern": "^[\\w+']*$",
+            "description": "Item's image URL must be no more than 300 characters"
         },
         "size": {
             "type": "string",
@@ -70,12 +76,6 @@
             "maxLength": 1000,
             "pattern": "^[\\w \\-.,'!#@]*$",
             "description": "Item's description must be no more than 1000 characters, and contain alphanumerics or these symbols:  -.,'!#@"
-        },
-        "picFileName": {
-            "type": "string",
-            "maxLength": 250,
-            "pattern": "^[\\w \\-.,']*$",
-            "description": "picture filename must be no more than 250 characters, and contain alphanumerics or these symbols:  _-.,'"
         }
     }
 }
