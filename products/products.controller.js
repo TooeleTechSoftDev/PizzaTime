@@ -13,13 +13,13 @@ module.exports = router
 
 
 function getProdById(req, res, next) {
-    productService.getProdById(parseInt(req.params.prodId))
+    productService.getById(parseInt(req.params.prodId))
     .then(data => data ? res.json(data) : res.sendStatus(500))
     .catch(err => next(err))
 }
 
 function getProdsByCategory(req, res, next) {
-    productService.getProdByCategory(req.params.category)
+    productService.getByCategory(req.params.category)
     .then(data => data ? res.json(data) : res.sendStatus(500))
     .catch(err => next(err))
 }
