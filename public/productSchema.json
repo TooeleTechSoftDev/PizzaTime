@@ -5,28 +5,29 @@
         {
             "productId": 789,
             "productType": "pizza",
-            "itemName": "Hawaiian",
+            "name": "Hawaiian",
             "size": "Large",
-            "pricePerItem": 12
+            "imgUrl": "something.jpg",
+            "price": 12
         },
         {
             "productId": 345,
             "productType": "drink",
-            "itemName": "Coke",
+            "name": "Coke",
             "size": "Small",
-            "pricePerItem": 1.5
+            "price": 1.5
         },
         {
             "productId": 567,
             "productType": "coupons",
-            "itemName": "July2019Promo",
-            "pricePerItem": -3.0
+            "name": "July2019Promo",
+            "price": -3.0
         },
         {
             "productId": 678,
             "productType": "fees",
-            "itemName": "Delivery Charge",
-            "pricePerItem": 2.0
+            "name": "Delivery Charge",
+            "price": 2.0
         }
     ],
     "type": "object",
@@ -43,11 +44,17 @@
             "pattern": "^[\\w \\.,']*$",
             "description": "Order type must be no more than 50 characters and contain alphanumerics or these symbols:  _.,'"
         },
-        "itemName": {
+        "name": {
             "type": "string",
             "maxLength": 50,
             "pattern": "^[\\w \\.,']*$",
             "description": "Item's name must be no more than 50 characters and contain alphanumerics or these symbols:  _.,'"
+        },
+        "imgUrl": {
+            "type": "string",
+            "maxLength": 300,
+            "pattern": "^[\\w+']*$",
+            "description": "Item's image URL must be no more than 300 characters"
         },
         "size": {
             "type": "string",

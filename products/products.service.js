@@ -4,17 +4,17 @@ var collection
 (async () => { collection = await dbclient.collections() })()
 
 module.exports = {
-    getProdById,
-    getProdsByCategory
+    getById,
+    getByCategory
 }
 
-async function getProdById(id) {
+async function getById(id) {
     console.log("Looking for productID: ", id)
-    return await collection.products.findOne({ "productID": id })    
+    return await collection.Products.findOne({ "productId": id })    
 }
 
-async function getProdsByCategory(category) {
+async function getByCategory(category) {
     console.log("Looking for product category: ", category)
-    return await collection.products.find({ "category": category }).toArray() 
+    return await collection.Products.find({ "category": category }).toArray() 
 }
 
