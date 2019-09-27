@@ -56,7 +56,7 @@
         "imgUrl": {
             "type": "string",
             "maxLength": 300,
-            "pattern": "^[\\w-.']*$",
+            "pattern": "^[\\w-\\.']*$",
             "description": "Item's image URL must be no more than 300 characters, and contain alphanumerics or these symbols:  _-.'"
         },
         "size": {

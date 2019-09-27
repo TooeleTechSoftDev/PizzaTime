@@ -3,9 +3,13 @@ const Ajv = require('ajv')  // Another JSON (Schema) Validator, https://www.npmj
 const _ = require('lodash')  // for flattening the schema to make error messages easier to get to
 let ajv = new Ajv( { allErrors: true } )  // ***** TODO: remove allErrors for production release, which fixes DoS issue
 
-
 let schemas = { }
 let validators = { }
+
+module.exports = {
+    checkInput,
+    getSchemas
+}
 
 
 // async json import, see here: https://goenning.net/2016/04/14/stop-reading-json-files-with-require/
@@ -16,9 +20,9 @@ function readJson(path, cb) {
             console.log(err)
             process.exit(-1)
         }
-        try{
-            cb(JSON.parse(data))
-        } catch(err2) {
+        try {
+           cb(JSON.parse(data))
+        } catch (err2) {
             console.log('=== JSON-parse error with file ', path)
             console.log(err2)
             process.exit(-1)
@@ -44,9 +48,9 @@ function readJson(path, cb) {
         })
 
         readJson('../public/productSchema.json', (schemaObj) => {
-            if (!securitySchemaValidator(schemaObj))  console.log("=== productSchema failed security check ===")
-            validators.product = ajv.compile(schemaObj)
-            schemas.product = schemaObj
+        if (!securitySchemaValidator(schemaObj))  console.log("=== productSchema failed security check ===")
+        validators.product = ajv.compile(schemaObj)
+        schemas.product = schemaObj
         })
     })
 })()
@@ -73,18 +77,30 @@ function getErrorStrings(errArray, schema) {
 // this function takes a JSON input object (from req.body) and validates it against a given schema;
 // returns an error string or error array, or null if no issue
 function checkInput(inputData, schemaStr) {
-    let validatorFunc = validators[schemaStr]
-    let schema = schemas[schemaStr]
-    if (!validatorFunc)  return 'server isn\'t ready, try again in a moment'  // schema may not be done being async loaded when a call happens to come in;  *** pause, auto-retry instead of failing?
-    if (typeof inputData != 'object')  return 'unexpected data'  // *** should something like this be persistently logged somewhere?  may be a sign of a hacking attempt
+  let validatorFunc = validators[schemaStr]
+  let schema = schemas[schemaStr]
+  if (!validatorFunc)  return 'server isn\'t ready, try again in a moment'  // schema may not be done being async loaded when a call happens to come in;  *** pause, auto-retry instead of failing?
+  if (typeof inputData != 'object')  return 'unexpected data'  // *** should something like this be persistently logged somewhere?  may be a sign of a hacking attempt
 
-    if (!validatorFunc(inputData)) {
-        let returnMsg = getErrorStrings(validatorFunc.errors, schema)
-        console.log(returnMsg)
-        return returnMsg || validatorFunc.errors  // return whole error object if we couldn't construct an error message
-    }
+  if (!validatorFunc(inputData)) {
+      let returnMsg = getErrorStrings(validatorFunc.errors, schema)
+      console.log(returnMsg)
+      return returnMsg || validatorFunc.errors  // return whole error object if we couldn't construct an error message
+  }
 
-    return null
+  return null
 }
 
-module.exports = { checkInput }
+async function getSchemas() {
+    console.log("initial schemas:  ", schemas)
+    for (let intervals = 0;  (!schemas || !schemas.order || !schemas.product || !schemas.custAccount) && intervals <= 1000;  intervals++) {
+        await timer(10)
+    }
+    if(schemas)  return schemas
+    else  throw('couldn\'t get schemas within 10 seconds')  // 10 ms * 1000 = 10 seconds
+}
+
+// Returns a Promise that resolves after "ms" Milliseconds;  from:  https://stackoverflow.com/questions/3583724/how-do-i-add-a-delay-in-a-javascript-loop
+function timer(ms) {  // es7 way using promises
+    return new Promise(res => setTimeout(res, ms))
+}

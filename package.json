@@ -4,6 +4,9 @@
   "description": "PizzaTime API Server",
   "main": "index.js",
   "scripts": {
+    "run": "node index2.js",
+    "run-dev": "nodemon index2.js",
+    "populate-db": "node setup-scripts/populate-db.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
