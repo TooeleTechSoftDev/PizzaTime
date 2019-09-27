@@ -3,7 +3,6 @@
     "title": "Customer Accounts schema",
     "examples": [
         {
-            "accountId": 123,
             "username": "some_User1",
             "password": "superSecret$9",
             "contacts": [
@@ -11,16 +10,11 @@
                     "firstName": "Ms. Foobar",
                     "lastName": "O'Neil, the 3rd",
                     "phone": "(555) 555-5555"
-                },
-                { }
+                }
             ],
             "addresses": [
-                { },
-                { }
             ],
             "paymentMethods": [
-                { },
-                { }
             ]
         }
     ],

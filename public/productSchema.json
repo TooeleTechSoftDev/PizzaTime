@@ -3,7 +3,14 @@
     "title": "Product schema",
     "examples": [
         {
-            "productId": 789,
+            "productType": "pizza",
+            "name": "Meat Lovers",
+            "size": "Large",
+            "longDescription": "Very meaty!",
+            "imgUrl": "meat-pizza.jpg",
+            "price": 13
+        },
+        {
             "productType": "pizza",
             "name": "Hawaiian",
             "size": "Large",
@@ -12,23 +19,36 @@
             "price": 12
         },
         {
-            "productId": 345,
+            "productType": "pizza",
+            "name": "Cheese",
+            "size": "Large",
+            "longDescription": "Very Cheesy!",
+            "imgUrl": "cheese-pizza.jpg",
+            "price": 11
+        },
+        {
             "productType": "drink",
             "name": "Coke",
             "size": "Small",
-            "price": 1.5,
-            "longDescription": "A refreshing coke drink",
+            "price": 10,
+            "longDescription": "A refreshing coke",
             "imgUrl": "coke.jpg"
         },
         {
-            "productId": 567,
-            "productType": "coupons",
+            "productType": "drink",
+            "name": "Root Beer",
+            "size": "Large",
+            "price": 2,
+            "longDescription": "A refreshing root beer",
+            "imgUrl": "coke.jpg"
+        },
+        {
+            "productType": "coupon",
             "name": "July2019Promo",
             "price": -3.0
         },
         {
-            "productId": 678,
-            "productType": "fees",
+            "productType": "fee",
             "name": "Delivery Charge",
             "price": 2.0
         }

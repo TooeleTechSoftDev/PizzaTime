@@ -92,7 +92,6 @@ function checkInput(inputData, schemaStr) {
 }
 
 async function getSchemas() {
-    console.log("initial schemas:  ", schemas)
     for (let intervals = 0;  (!schemas || !schemas.order || !schemas.product || !schemas.custAccount) && intervals <= 1000;  intervals++) {
         await timer(10)
     }
