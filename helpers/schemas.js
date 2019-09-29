@@ -48,9 +48,9 @@ function readJson(path, cb) {
         })
 
         readJson('../public/productSchema.json', (schemaObj) => {
-        if (!securitySchemaValidator(schemaObj))  console.log("=== productSchema failed security check ===")
-        validators.product = ajv.compile(schemaObj)
-        schemas.product = schemaObj
+            if (!securitySchemaValidator(schemaObj))  console.log("=== productSchema failed security check ===")
+            validators.product = ajv.compile(schemaObj)
+            schemas.product = schemaObj
         })
     })
 })()
@@ -77,18 +77,18 @@ function getErrorStrings(errArray, schema) {
 // this function takes a JSON input object (from req.body) and validates it against a given schema;
 // returns an error string or error array, or null if no issue
 function checkInput(inputData, schemaStr) {
-  let validatorFunc = validators[schemaStr]
-  let schema = schemas[schemaStr]
-  if (!validatorFunc)  return 'server isn\'t ready, try again in a moment'  // schema may not be done being async loaded when a call happens to come in;  *** pause, auto-retry instead of failing?
-  if (typeof inputData != 'object')  return 'unexpected data'  // *** should something like this be persistently logged somewhere?  may be a sign of a hacking attempt
+    let validatorFunc = validators[schemaStr]
+    let schema = schemas[schemaStr]
+    if (!validatorFunc)  return 'server isn\'t ready, try again in a moment'  // schema may not be done being async loaded when a call happens to come in;  *** pause, auto-retry instead of failing?
+    if (typeof inputData != 'object')  return 'unexpected data'  // *** should something like this be persistently logged somewhere?  may be a sign of a hacking attempt
 
-  if (!validatorFunc(inputData)) {
-      let returnMsg = getErrorStrings(validatorFunc.errors, schema)
-      console.log(returnMsg)
-      return returnMsg || validatorFunc.errors  // return whole error object if we couldn't construct an error message
-  }
+    if (!validatorFunc(inputData)) {
+        let returnMsg = getErrorStrings(validatorFunc.errors, schema)
+        console.log(returnMsg)
+        return returnMsg || validatorFunc.errors  // return whole error object if we couldn't construct an error message
+    }
 
-  return null
+    return null
 }
 
 async function getSchemas() {
