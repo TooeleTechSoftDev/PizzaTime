@@ -3,7 +3,6 @@
     "title": "Individual Order schema",
     "examples": [
         {
-            "orderId": 234,
             "accountId": 123,
             "paymentTransactionId": 456,
             "contact": {
@@ -37,21 +36,21 @@
                 },
                 {
                     "productId": 654,
-                    "orderType": "sides",
+                    "orderType": "side",
                     "itemName": "Breadsticks",
                     "quantity": 1,
                     "pricePerItem": 5.99
                 },
                 {
                     "productId": 567,
-                    "orderType": "coupons",
+                    "orderType": "coupon",
                     "itemName": "July2019Promo",
                     "quantity": 1,
                     "pricePerItem": -3.0
                 },
                 {
                     "productId": 678,
-                    "orderType": "fees",
+                    "orderType": "fee",
                     "itemName": "Delivery Charge",
                     "quantity": 1,
                     "pricePerItem": 2.0

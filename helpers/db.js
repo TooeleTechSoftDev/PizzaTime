@@ -11,6 +11,10 @@ function connection() {
     async function connect() {
         try { 
             let _db = await MongoClient.connect(config.localUrl, { useNewUrlParser: true })
+            .catch(err => {
+                console.log("=== MongoDB didn't connect, err: ", err)
+                process.exit(-1)
+            })
 
             const dbpizza = _db.db('PizzaTime')
             collList.some(element => {

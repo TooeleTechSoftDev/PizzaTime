@@ -3,9 +3,13 @@ const Ajv = require('ajv')  // Another JSON (Schema) Validator, https://www.npmj
 const _ = require('lodash')  // for flattening the schema to make error messages easier to get to
 let ajv = new Ajv( { allErrors: true } )  // ***** TODO: remove allErrors for production release, which fixes DoS issue
 
-
 let schemas = { }
 let validators = { }
+
+module.exports = {
+    checkInput,
+    getSchemas
+}
 
 
 // async json import, see here: https://goenning.net/2016/04/14/stop-reading-json-files-with-require/
@@ -16,9 +20,9 @@ function readJson(path, cb) {
             console.log(err)
             process.exit(-1)
         }
-        try{
-            cb(JSON.parse(data))
-        } catch(err2) {
+        try {
+           cb(JSON.parse(data))
+        } catch (err2) {
             console.log('=== JSON-parse error with file ', path)
             console.log(err2)
             process.exit(-1)
@@ -87,4 +91,15 @@ function checkInput(inputData, schemaStr) {
     return null
 }
 
-module.exports = { checkInput }
+async function getSchemas() {
+    for (let intervals = 0;  (!schemas || !schemas.order || !schemas.product || !schemas.custAccount) && intervals <= 1000;  intervals++) {
+        await timer(10)
+    }
+    if(schemas)  return schemas
+    else  throw('couldn\'t get schemas within 10 seconds')  // 10 ms * 1000 = 10 seconds
+}
+
+// Returns a Promise that resolves after "ms" Milliseconds;  from:  https://stackoverflow.com/questions/3583724/how-do-i-add-a-delay-in-a-javascript-loop
+function timer(ms) {  // es7 way using promises
+    return new Promise(res => setTimeout(res, ms))
+}
